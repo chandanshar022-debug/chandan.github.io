@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SharmaJi Store - Blog & Shop</title>
+  <meta name="description" content="SharmaJi Store - demo site with blog, sample posts, images and simple login admin." />
+  <style>
+    :root{--accent:#0f766e;--muted:#6b7280;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;background:#f3f4f6;color:#0f172a}
+    header{background:linear-gradient(90deg, rgba(15,118,110,0.95), rgba(6,95,70,0.95));color:white;padding:28px 20px}
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:8px;background:white;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700}
+    nav{margin-left:auto}
+    nav a{color:rgba(255,255,255,0.92);text-decoration:none;margin-left:18px}
+    .hero{display:flex;align-items:center;gap:24px}
+    .hero h1{margin:0;font-size:28px}
+    .flex{display:flex;gap:20px}
+    .main{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-top:20px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+    .post{display:flex;gap:14px;margin-bottom:14px}
+    .post img{width:120px;height:80px;object-fit:cover;border-radius:8px}
+    .post h3{margin:0;font-size:16px}
+    .meta{color:var(--muted);font-size:13px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none}
+    aside .search{display:flex;margin-bottom:12px}
+    input[type="text"], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef}
+    footer{text-align:center;padding:20px;color:var(--muted);font-size:14px;margin-top:28px}
+    .post-list img.small{width:80px;height:60px}
+    /* responsive */
+    @media (max-width:880px){.main{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.brand{gap:10px}.logo{width:48px;height:48px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <div class="logo">SJ</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div>
+                <h1 style="margin:0;font-size:20px">SharmaJi Store</h1>
+                <div style="color:rgba(255,255,255,0.9);font-size:13px">Blog, demo shop and multimedia — made with code</div>
+              </div>
+              <nav>
+                <a href="#home">Home</a>
+                <a href="#blog">Blog</a>
+                <a href="#videos">Videos</a>
+                <a href="#admin" id="adminLink">Admin</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero card">
+      <div style="flex:1">
+        <h2>Welcome to <strong>SharmaJi Store</strong></h2>
+        <p class="meta">A demo site that includes a blog, sample images, video embeds and a simple local admin login. Use it as a starter and customize freely.</p>
+        <p><a href="#blog" class="btn">See the blog</a></p>
+      </div>
+      <div style="width:320px">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=60" alt="hero" style="width:100%;border-radius:8px;display:block" />
+      </div>
+    </section>
+
+    <div class="main">
+      <section class="card">
+        <h2 id="blog">Latest posts</h2>
+        <div id="posts"></div>
+      </section>
+
+      <aside class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h3 style="margin:0">Sidebar</h3>
+          <small class="meta">Quick actions</small>
+        </div>
+
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="Search posts..." />
+          <button class="btn" id="searchBtn">Go</button>
+        </div>
+
+        <div style="margin-bottom:12px">
+          <h4>Categories</h4>
+          <div id="categories"></div>
+        </div>
+
+        <div>
+          <h4>Recent</h4>
+          <div id="recent"></div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="videos" class="card" style="margin-top:20px">
+      <h2>Featured Video</h2>
+      <div style="max-width:900px">
+        <!-- demo YouTube embed -->
+        <iframe width="100%" height="420" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Demo video" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="admin" class="card" style="margin-top:20px">
+      <h2>Admin (local demo)</h2>
+      <p class="meta">This admin panel is a simple client-side demo that stores posts to your browser (localStorage). It is not secure — for production use a server + auth system is required.</p>
+
+      <div id="loginArea">
+        <label>Username</label>
+        <input id="username" type="text" placeholder="admin" />
+        <label style="margin-top:8px">Password</label>
+        <input id="password" type="password" placeholder="password" />
+        <div style="margin-top:10px"><button class="btn" id="loginBtn">Login</button></div>
+      </div>
+
+      <div id="adminPanel" style="display:none;margin-top:12px">
+        <h3>Create a post</h3>
+        <input id="postTitle" placeholder="Post title" />
+        <input id="postCategory" placeholder="Category (e.g. Tech)" style="margin-top:8px" />
+        <textarea id="postExcerpt" rows="3" placeholder="Short excerpt" style="margin-top:8px"></textarea>
+        <input id="postImage" placeholder="Image URL (optional)" style="margin-top:8px" />
+        <textarea id="postBody" rows="6" placeholder="Full post content (HTML allowed)" style="margin-top:8px"></textarea>
+        <div style="margin-top:8px"><button class="btn" id="createPost">Create post</button> <button id="logoutBtn" style="margin-left:8px">Logout</button></div>
+      </div>
+    </section>
+
+    <footer>
+      Made with ❤️ — SharmaJi Store demo. Save this file as <code>index.html</code> and open it in your browser.
+    </footer>
+  </main>
+
+  <script>
+    /* ------------------ Demo data ------------------ */
+    const SAMPLE_POSTS = [
+      {
+        id: 'p1',
+        title: 'How to Start Your Online Store',
+        excerpt: 'A quick guide to getting your store online with free hosting options.',
+        body: '<p>Start by choosing a platform and picking a name. Use static hosting for simple stores. This demo shows a basic blog + store layout.</p>',
+        image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=60',
+        category: 'Business',
+        date: '2025-11-09'
+      },
+      {
+        id: 'p2',
+        title: 'Small Changes that Boost Conversions',
+        excerpt: 'Design tweaks that can lead to better sales and happier customers.',
+        body: '<ul><li>Faster images</li><li>Clear CTAs</li><li>Mobile-first design</li></ul>',
+        image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=60',
+        category: 'Marketing',
+        date: '2025-11-05'
+      },
+      {
+        id: 'p3',
+        title: 'Building with HTML, CSS & JS',
+        excerpt: 'Why simple static sites are powerful and how to extend them.',
+        body: '<p>Static sites are fast, secure and easy to host. Use JS for interactivity and a light backend for payments.</p>',
+        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=60',
+        category: 'Tech',
+        date: '2025-10-28'
+      }
+    ];
+
+    /* ------------------ Storage helpers ------------------ */
+    function loadPosts(){
+      try{
+        const raw = localStorage.getItem('sj_posts');
+        if(!raw) return SAMPLE_POSTS.slice();
+        return JSON.parse(raw);
+      }catch(e){return SAMPLE_POSTS.slice();}
+    }
+    function savePosts(posts){ localStorage.setItem('sj_posts', JSON.stringify(posts)); }
+
+    /* ------------------ Rendering ------------------ */
+    const postsEl = document.getElementById('posts');
+    const recentEl = document.getElementById('recent');
+    const categoriesEl = document.getElementById('categories');
+
+    function render(){
+      const posts = loadPosts().sort((a,b)=> new Date(b.date) - new Date(a.date));
+      postsEl.innerHTML = '';
+      posts.forEach(p=>{
+        const div = document.createElement('div'); div.className='post';
+        div.innerHTML = `\n          <img alt="${escapeHtml(p.title)}" src="${p.image||'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=60'}" />\n          <div>\n            <h3>${escapeHtml(p.title)}</h3>\n            <div class=\"meta\">${escapeHtml(p.date)} • ${escapeHtml(p.category)}</div>\n            <p>${escapeHtml(p.excerpt)}</p>\n            <p><a href=\"#\" class=\"btn\" onclick=\"openPost('${p.id}')\">Read</a></p>\n          </div>\n        `;
+        postsEl.appendChild(div);
+      });
+
+      // recent
+      recentEl.innerHTML = '';
+      posts.slice(0,4).forEach(p=>{
+        const d = document.createElement('div'); d.className='post-list post';
+        d.innerHTML = `<img class=\"small\" src=\"${p.image}\" alt=\"${escapeHtml(p.title)}\" /><div style=\"flex:1\"><strong>${escapeHtml(p.title)}</strong><div class=\"meta\">${escapeHtml(p.date)}</div></div>`;
+        recentEl.appendChild(d);
+      });
+
+      // categories
+      const cats = {};
+      posts.forEach(p=> cats[p.category] = (cats[p.category]||0)+1);
+      categoriesEl.innerHTML = Object.keys(cats).map(c=>`<div>${escapeHtml(c)} <span class=\"meta\">(${cats[c]})</span></div>`).join('')
+    }
+
+    function openPost(id){
+      const posts = loadPosts();
+      const p = posts.find(x=>x.id===id);
+      if(!p){alert('Post not found');return}
+      const win = window.open();
+      win.document.write(`<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>${escapeHtml(p.title)}</title><style>body{font-family:Arial;padding:20px;max-width:800px;margin:0 auto}img{max-width:100%} .meta{color:#6b7280}</style></head><body><h1>${escapeHtml(p.title)}</h1><div class=\"meta\">${escapeHtml(p.date)} • ${escapeHtml(p.category)}</div><img src=\"${p.image}\" alt=\"${escapeHtml(p.title)}\"><article>${p.body}</article></body></html>`);
+    }
+
+    function escapeHtml(s){ return String(s).replace(/[&<>\"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+    /* ------------------ Search ------------------ */
+    document.getElementById('searchBtn').addEventListener('click', ()=>{
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if(!q){ render(); return; }
+      const posts = loadPosts().filter(p=> (p.title+p.excerpt+p.body).toLowerCase().includes(q));
+      postsEl.innerHTML = '';
+      posts.forEach(p=>{
+        const div = document.createElement('div'); div.className='post';
+        div.innerHTML = `\n          <img alt="${escapeHtml(p.title)}" src="${p.image||''}" />\n          <div>\n            <h3>${escapeHtml(p.title)}</h3>\n            <div class=\"meta\">${escapeHtml(p.date)} • ${escapeHtml(p.category)}</div>\n            <p>${escapeHtml(p.excerpt)}</p>\n            <p><a href=\"#\" class=\"btn\" onclick=\"openPost('${p.id}')\">Read</a></p>\n          </div>\n        `;
+        postsEl.appendChild(div);
+      });
+    });
+
+    /* ------------------ Simple admin auth ------------------ */
+    // NOTE: This is client-side only. Credentials are here for demo purposes.
+    const DEMO_USER = {username:'admin', password:'sharmaji123'};
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginArea = document.getElementById('loginArea');
+
+    function checkAuth(){
+      const ok = localStorage.getItem('sj_auth') === '1';
+      adminPanel.style.display = ok ? 'block' : 'none';
+      loginArea.style.display = ok ? 'none' : 'block';
+      document.getElementById('adminLink').style.display = ok ? 'none' : 'inline';
+    }
+
+    loginBtn.addEventListener('click', ()=>{
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value.trim();
+      if(u===DEMO_USER.username && p===DEMO_USER.password){ localStorage.setItem('sj_auth','1'); alert('Logged in (demo)'); checkAuth(); }
+      else alert('Invalid credentials — demo creds are admin / sharmaji123');
+    });
+    logoutBtn && logoutBtn.addEventListener('click', ()=>{ localStorage.removeItem('sj_auth'); checkAuth(); });
+
+    /* ------------------ Create post ------------------ */
+    document.getElementById('createPost').addEventListener('click', ()=>{
+      if(localStorage.getItem('sj_auth')!=='1'){alert('Please login first'); return}
+      const title = document.getElementById('postTitle').value.trim();
+      if(!title){alert('Add a title');return}
+      const newPost = {
+        id: 'p'+Date.now(),
+        title: title,
+        excerpt: document.getElementById('postExcerpt').value.trim()||title,
+        body: document.getElementById('postBody').value.trim()||'<p>(No content)</p>',
+        image: document.getElementById('postImage').value.trim()||'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=60',
+        category: document.getElementById('postCategory').value.trim()||'Uncategorized',
+        date: new Date().toISOString().slice(0,10)
+      };
+      const posts = loadPosts(); posts.unshift(newPost); savePosts(posts); render();
+      // clear
+      document.getElementById('postTitle').value=''; document.getElementById('postExcerpt').value=''; document.getElementById('postBody').value='';
+      alert('Post created (saved to browser)');
+    });
+
+    // initialize
+    render(); checkAuth();
+  </script>
+</body>
+</html>
